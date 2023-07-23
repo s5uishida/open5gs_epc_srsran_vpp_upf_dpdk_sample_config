@@ -1,0 +1,1 @@
+# open5gs_epc_srsran_vpp_upf_dpdk_sample_config

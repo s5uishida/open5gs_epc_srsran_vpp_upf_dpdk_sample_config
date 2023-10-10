@@ -78,7 +78,7 @@ The built simulation environment is as follows.
 
 The EPC / VPP-UPF / UE / RAN used are as follows.
 - EPC - Open5GS v2.6.4 (2023.07.22) - https://github.com/open5gs/open5gs
-- VPP-UPF - OpenAir CN 5G for UPF v1.5.1 (2023.06.14) - https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-upf-vpp
+- VPP-UPF - OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-upf-vpp
 - UE / RAN - srsRAN 4G (2023.06.19) - https://github.com/srsran/srsRAN_4G
 
 Each VMs are as follows.  
@@ -152,7 +152,7 @@ The main information of eNodeB is as follows.
 
 Please refer to the following for building Open5GS, VPP-UPF and srsRAN 4G ZMQ respectively.
 - Open5GS v2.6.4 (2023.07.22) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- OpenAir CN 5G for UPF v1.5.1 (2023.06.14) - https://github.com/s5uishida/install_vpp_upf_dpdk
+- OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://github.com/s5uishida/install_vpp_upf_dpdk
 - srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
 
 <a id="changes_cp"></a>
@@ -431,7 +431,7 @@ See [this1](https://github.com/s5uishida/install_vpp_upf_dpdk#setup-vpp-upf-with
 
 Please refer to the following for building Open5GS, VPP-UPF and UERANSIM respectively.
 - Open5GS v2.6.4 (2023.07.22) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- OpenAir CN 5G for UPF v1.5.1 (2023.06.14) - https://github.com/s5uishida/install_vpp_upf_dpdk
+- OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://github.com/s5uishida/install_vpp_upf_dpdk
 - srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
 
 Install MongoDB on Open5GS EPC C-Plane machine.

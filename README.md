@@ -1,6 +1,6 @@
 # Open5GS EPC & srsRAN 4G with ZeroMQ UE / RAN Sample Configuration - VPP-UPF(PGW-U) with DPDK
 This describes a simple configuration for working Open5GS EPC and VPP-UPF with DPDK.
-In particular, see [here](https://github.com/s5uishida/install_vpp_upf_dpdk) for VPP-UPF with DPDK configuration.
+In particular, see [here](https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1) for VPP-UPF with DPDK configuration.
 
 ---
 
@@ -50,8 +50,8 @@ The built simulation environment is as follows.
 <img src="./images/network-overview.png" title="./images/network-overview.png" width=1000px></img>
 
 The EPC / VPP-UPF / UE / RAN used are as follows.
-- EPC - Open5GS v2.6.4 (2023.07.22) - https://github.com/open5gs/open5gs
-- VPP-UPF - OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-upf-vpp
+- EPC - Open5GS v2.6.6 (2023.11.10) - https://github.com/open5gs/open5gs
+- VPP-UPF - UPG-VPP v1.10.0 (2023.11.10) - https://github.com/travelping/upg-vpp
 - UE / RAN - srsRAN 4G (2023.06.19) - https://github.com/srsran/srsRAN_4G
 
 Each VMs are as follows.  
@@ -59,7 +59,7 @@ Each VMs are as follows.
 | --- | --- | --- | --- | --- | --- | --- |
 | VM1 | Open5GS EPC C-Plane | 192.168.0.111/24 | Ubuntu 22.04 | 1 | 1GB | 20GB |
 | VM2 | Open5GS EPC U-Plane(SGW-U) | 192.168.0.112/24 | Ubuntu 22.04 | 1 | 1GB | 20GB |
-| VM-UP | OpenAir CN 5G for UPF(PGW-U) | 192.168.0.151/24 | Ubuntu 22.04 | 2 | 8GB | 20GB |
+| VM-UP | UPG-VPP U-Plane(PGW-U) | 192.168.0.151/24 | Ubuntu 20.04 | 2 | 8GB | 20GB |
 | VM-DN | Data Network Gateway  | 192.168.0.152/24 | Ubuntu 22.04 | 1 | 1GB | 10GB |
 | VM3 | srsRAN 4G ZMQ RAN (eNodeB) | 192.168.0.121/24 | Ubuntu 22.04 | 1 | 2GB | 10GB |
 | VM4 | srsRAN 4G ZMQ UE | 192.168.0.122/24 | Ubuntu 22.04 | 1 | 2GB | 10GB |
@@ -124,8 +124,8 @@ The main information of eNodeB is as follows.
 ## Changes in configuration files of Open5GS EPC, VPP-UPF and srsRAN 4G ZMQ UE / RAN
 
 Please refer to the following for building Open5GS, VPP-UPF and srsRAN 4G ZMQ respectively.
-- Open5GS v2.6.4 (2023.07.22) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://github.com/s5uishida/install_vpp_upf_dpdk
+- Open5GS v2.6.6 (2023.11.10) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- UPG-VPP v1.10.0 (2023.11.10) - https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1
 - srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
 
 <a id="changes_cp"></a>
@@ -142,8 +142,8 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 
 - `open5gs/install/etc/open5gs/mme.yaml`
 ```diff
---- mme.yaml.orig       2023-07-23 08:08:55.799628539 +0900
-+++ mme.yaml    2023-07-23 08:17:08.117304509 +0900
+--- mme.yaml.orig       2023-11-10 20:39:04.000000000 +0900
++++ mme.yaml    2023-11-10 22:11:20.367130602 +0900
 @@ -321,7 +321,7 @@
  mme:
      freeDiameter: /root/open5gs/install/etc/freeDiameter/mme.conf
@@ -175,8 +175,8 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 ```
 - `open5gs/install/etc/open5gs/sgwc.yaml`
 ```diff
---- sgwc.yaml.orig      2023-07-23 08:08:55.825629002 +0900
-+++ sgwc.yaml   2023-07-23 13:09:32.935227621 +0900
+--- sgwc.yaml.orig      2023-11-10 20:39:04.000000000 +0900
++++ sgwc.yaml   2023-11-10 22:11:37.213725908 +0900
 @@ -81,7 +81,7 @@
      gtpc:
        - addr: 127.0.0.3
@@ -199,8 +199,8 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 ```
 - `open5gs/install/etc/open5gs/smf.yaml`
 ```diff
---- smf.yaml.orig       2023-07-23 08:08:55.880629982 +0900
-+++ smf.yaml    2023-07-23 11:53:11.670325752 +0900
+--- smf.yaml.orig       2023-11-10 20:39:04.000000000 +0900
++++ smf.yaml    2023-11-10 22:12:02.452682602 +0900
 @@ -598,29 +598,21 @@
  #      maximum_integrity_protected_data_rate_downlink: bitrate64kbs|maximum-UE-rate
  #
@@ -263,8 +263,8 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 
 - `open5gs/install/etc/open5gs/sgwu.yaml`
 ```diff
---- sgwu.yaml.orig      2023-07-23 08:08:55.000000000 +0900
-+++ sgwu.yaml   2023-07-23 13:12:16.964863233 +0900
+--- sgwu.yaml.orig      2023-11-10 20:39:04.000000000 +0900
++++ sgwu.yaml   2023-11-10 22:09:32.350777048 +0900
 @@ -114,9 +114,9 @@
  #
  sgwu:
@@ -283,7 +283,7 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 
 ### Changes in configuration files of VPP-UPF
 
-See [here](https://github.com/s5uishida/install_vpp_upf_dpdk#create-configuration-files) for the original files.
+See [here](https://github.com/s5uishida/install_vpp_upf_dpdk#changes_up) for the original files.
 
 - `openair-upf/startup.conf`  
 There is no change.
@@ -396,15 +396,15 @@ There is no change.
 
 ### Network settings of VPP-UPF and Data Network Gateway
 
-See [this1](https://github.com/s5uishida/install_vpp_upf_dpdk#setup-vpp-upf-with-dpdk-on-vm-up) and [this2](https://github.com/s5uishida/install_vpp_upf_dpdk#setup-data-network-gateway-on-vm-dn).
+See [this1](https://github.com/s5uishida/install_vpp_upf_dpdk#setup_up) and [this2](https://github.com/s5uishida/install_vpp_upf_dpdk#setup_dn).
 
 <a id="build"></a>
 
 ## Build Open5GS, VPP-UPF and srsRAN 4G ZMQ UE / RAN
 
 Please refer to the following for building Open5GS, VPP-UPF and UERANSIM respectively.
-- Open5GS v2.6.4 (2023.07.22) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
-- OpenAir CN 5G for UPF v1.5.1 (2023.05.15) - https://github.com/s5uishida/install_vpp_upf_dpdk
+- Open5GS v2.6.6 (2023.11.10) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
+- UPG-VPP v1.10.0 (2023.11.10) - https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1
 - srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
 
 Install MongoDB on Open5GS EPC C-Plane machine.
@@ -420,7 +420,7 @@ First run VPP-UPF and EPC U-Plane(SGW-U), then EPC C-Plane, the RAN, and the UE.
 
 ### Run VPP-UPF
 
-See [this](https://github.com/s5uishida/install_vpp_upf_dpdk#run-vpp-upf-with-dpdk-on-vm-up).
+See [this](https://github.com/s5uishida/install_vpp_upf_dpdk#run_upg_vpp).
 
 <a id="run_up"></a>
 
@@ -445,7 +445,7 @@ The status of PFCP association between VPP-UPF and Open5GS SMF(PGW-C) is as foll
 ```
 vpp# show upf association 
 Node: 192.168.14.111
-  Recovery Time Stamp: 2023/07/23 19:16:30:000
+  Recovery Time Stamp: 2023/11/10 22:40:23:000
   Sessions: 0
 vpp#
 ```
@@ -472,19 +472,19 @@ Current sample rate is 1.92 MHz with a base rate of 23.04 MHz (x12 decimation)
 CH0 rx_port=tcp://192.168.0.122:2001
 CH0 tx_port=tcp://192.168.0.121:2000
 CH0 fail_on_disconnect=true
-Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
-Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
-Setting frequency: DL=2680.0 Mhz, UL=2560.0 MHz for cc_idx=0 nof_prb=50
 
 ==== eNodeB started ===
 Type <t> to view trace
+Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
+Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
+Setting frequency: DL=2680.0 Mhz, UL=2560.0 MHz for cc_idx=0 nof_prb=50
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-07/23 19:16:35.106: [mme] INFO: eNB-S1 accepted[192.168.0.121]:60925 in s1_path module (../src/mme/s1ap-sctp.c:114)
-07/23 19:16:35.106: [mme] INFO: eNB-S1 accepted[192.168.0.121] in master_sm module (../src/mme/mme-sm.c:108)
-07/23 19:16:35.106: [mme] INFO: [Added] Number of eNBs is now 1 (../src/mme/mme-context.c:2549)
-07/23 19:16:35.106: [mme] INFO: eNB-S1[192.168.0.121] max_num_of_ostreams : 30 (../src/mme/mme-sm.c:150)
+11/10 22:41:00.252: [mme] INFO: eNB-S1 accepted[192.168.0.121]:41113 in s1_path module (../src/mme/s1ap-sctp.c:114)
+11/10 22:41:00.252: [mme] INFO: eNB-S1 accepted[192.168.0.121] in master_sm module (../src/mme/mme-sm.c:108)
+11/10 22:41:00.253: [mme] INFO: [Added] Number of eNBs is now 1 (../src/mme/mme-context.c:2558)
+11/10 22:41:00.253: [mme] INFO: eNB-S1[192.168.0.121] max_num_of_ostreams : 30 (../src/mme/mme-sm.c:150)
 ```
 
 <a id="run_ue"></a>
@@ -515,54 +515,55 @@ Found Cell:  Mode=FDD, PCI=1, PRB=50, Ports=1, CP=Normal, CFO=-0.2 KHz
 Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
 Current sample rate is 11.52 MHz with a base rate of 23.04 MHz (x2 decimation)
 Found PLMN:  Id=00101, TAC=1
-Random Access Transmission: seq=3, tti=181, ra-rnti=0x2
+Random Access Transmission: seq=27, tti=181, ra-rnti=0x2
 RRC Connected
 Random Access Complete.     c-rnti=0x46, ta=0
 Network attach successful. IP: 10.45.0.2
- nTp) 23/7/2023 10:20:23 TZ:99
+ nTp) 10/11/2023 13:42:25 TZ:99
 ```
 The Open5GS C-Plane log when executed is as follows.
 ```
-07/23 19:20:22.614: [mme] INFO: InitialUEMessage (../src/mme/s1ap-handler.c:232)
-07/23 19:20:22.614: [mme] INFO: [Added] Number of eNB-UEs is now 1 (../src/mme/mme-context.c:4390)
-07/23 19:20:22.614: [mme] INFO: Unknown UE by S_TMSI[G:2,C:1,M_TMSI:0xc000013a] (../src/mme/s1ap-handler.c:301)
-07/23 19:20:22.614: [mme] INFO:     ENB_UE_S1AP_ID[1] MME_UE_S1AP_ID[1] TAC[1] CellID[0x19b01] (../src/mme/s1ap-handler.c:387)
-07/23 19:20:22.614: [mme] INFO: Unknown UE by GUTI[G:2,C:1,M_TMSI:0xc000013a] (../src/mme/mme-context.c:3272)
-07/23 19:20:22.614: [mme] INFO: [Added] Number of MME-UEs is now 1 (../src/mme/mme-context.c:3081)
-07/23 19:20:22.614: [emm] INFO: [] Attach request (../src/mme/emm-sm.c:364)
-07/23 19:20:22.614: [emm] INFO:     GUTI[G:2,C:1,M_TMSI:0xc000013a] IMSI[Unknown IMSI] (../src/mme/emm-handler.c:238)
-07/23 19:20:22.660: [emm] INFO: Identity response (../src/mme/emm-sm.c:334)
-07/23 19:20:22.660: [emm] INFO:     IMSI[001010000000100] (../src/mme/emm-handler.c:401)
-07/23 19:20:22.796: [mme] INFO: [Added] Number of MME-Sessions is now 1 (../src/mme/mme-context.c:4404)
-07/23 19:20:22.841: [sgwc] INFO: [Added] Number of SGWC-UEs is now 1 (../src/sgwc/context.c:237)
-07/23 19:20:22.841: [sgwc] INFO: [Added] Number of SGWC-Sessions is now 1 (../src/sgwc/context.c:879)
-07/23 19:20:22.842: [sgwc] INFO: UE IMSI[001010000000100] APN[internet] (../src/sgwc/s11-handler.c:237)
-07/23 19:20:22.842: [gtp] INFO: gtp_connect() [127.0.0.4]:2123 (../lib/gtp/path.c:60)
-07/23 19:20:22.843: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:1010)
-07/23 19:20:22.843: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:3050)
-07/23 19:20:22.843: [smf] INFO: UE IMSI[001010000000100] APN[internet] IPv4[10.45.0.2] IPv6[] (../src/smf/s5c-handler.c:255)
-07/23 19:20:22.857: [gtp] INFO: gtp_connect() [192.168.13.151]:2152 (../lib/gtp/path.c:60)
-07/23 19:20:22.858: [gtp] INFO: gtp_connect() [127.0.0.4]:2123 (../lib/gtp/path.c:60)
-07/23 19:20:23.177: [emm] INFO: [001010000000100] Attach complete (../src/mme/emm-sm.c:1249)
-07/23 19:20:23.177: [emm] INFO:     IMSI[001010000000100] (../src/mme/emm-handler.c:276)
-07/23 19:20:23.177: [emm] INFO:     UTC [2023-07-23T10:20:23] Timezone[0]/DST[0] (../src/mme/emm-handler.c:282)
-07/23 19:20:23.177: [emm] INFO:     LOCAL [2023-07-23T19:20:23] Timezone[32400]/DST[0] (../src/mme/emm-handler.c:286)
+11/10 22:42:25.192: [mme] INFO: InitialUEMessage (../src/mme/s1ap-handler.c:402)
+11/10 22:42:25.192: [mme] INFO: [Added] Number of eNB-UEs is now 1 (../src/mme/mme-context.c:4434)
+11/10 22:42:25.192: [mme] INFO: Unknown UE by S_TMSI[G:2,C:1,M_TMSI:0xc0000756] (../src/mme/s1ap-handler.c:482)
+11/10 22:42:25.192: [mme] INFO:     ENB_UE_S1AP_ID[1] MME_UE_S1AP_ID[1] TAC[1] CellID[0x19b01] (../src/mme/s1ap-handler.c:578)
+11/10 22:42:25.192: [mme] INFO: Unknown UE by GUTI[G:2,C:1,M_TMSI:0xc0000756] (../src/mme/mme-context.c:3288)
+11/10 22:42:25.192: [mme] INFO: [Added] Number of MME-UEs is now 1 (../src/mme/mme-context.c:3090)
+11/10 22:42:25.192: [emm] INFO: [] Attach request (../src/mme/emm-sm.c:412)
+11/10 22:42:25.192: [emm] INFO:     GUTI[G:2,C:1,M_TMSI:0xc0000756] IMSI[Unknown IMSI] (../src/mme/emm-handler.c:245)
+11/10 22:42:25.227: [emm] INFO: Identity response (../src/mme/emm-sm.c:382)
+11/10 22:42:25.227: [emm] INFO:     IMSI[001010000000100] (../src/mme/emm-handler.c:409)
+11/10 22:42:25.341: [mme] INFO: [Added] Number of MME-Sessions is now 1 (../src/mme/mme-context.c:4448)
+11/10 22:42:25.409: [sgwc] INFO: [Added] Number of SGWC-UEs is now 1 (../src/sgwc/context.c:237)
+11/10 22:42:25.409: [sgwc] INFO: [Added] Number of SGWC-Sessions is now 1 (../src/sgwc/context.c:879)
+11/10 22:42:25.409: [sgwc] INFO: UE IMSI[001010000000100] APN[internet] (../src/sgwc/s11-handler.c:237)
+11/10 22:42:25.410: [gtp] INFO: gtp_connect() [127.0.0.4]:2123 (../lib/gtp/path.c:60)
+11/10 22:42:25.411: [smf] INFO: [Added] Number of SMF-UEs is now 1 (../src/smf/context.c:1010)
+11/10 22:42:25.411: [smf] INFO: [Added] Number of SMF-Sessions is now 1 (../src/smf/context.c:3057)
+11/10 22:42:25.411: [smf] INFO: UE IMSI[001010000000100] APN[internet] IPv4[10.45.0.2] IPv6[] (../src/smf/s5c-handler.c:275)
+11/10 22:42:25.434: [gtp] INFO: gtp_connect() [192.168.13.151]:2152 (../lib/gtp/path.c:60)
+11/10 22:42:25.435: [gtp] INFO: gtp_connect() [127.0.0.4]:2123 (../lib/gtp/path.c:60)
+11/10 22:42:25.726: [emm] INFO: [001010000000100] Attach complete (../src/mme/emm-sm.c:1298)
+11/10 22:42:25.726: [emm] INFO:     IMSI[001010000000100] (../src/mme/emm-handler.c:283)
+11/10 22:42:25.726: [emm] INFO:     UTC [2023-11-10T13:42:25] Timezone[0]/DST[0] (../src/mme/emm-handler.c:290)
+11/10 22:42:25.727: [emm] INFO:     LOCAL [2023-11-10T22:42:25] Timezone[32400]/DST[0] (../src/mme/emm-handler.c:294)
 ```
 The Open5GS U-Plane log when executed is as follows.
 ```
-07/23 19:20:22.786: [sgwu] INFO: UE F-SEID[UP:0x7dc CP:0x924] (../src/sgwu/context.c:169)
-07/23 19:20:22.786: [sgwu] INFO: [Added] Number of SGWU-Sessions is now 1 (../src/sgwu/context.c:174)
-07/23 19:20:22.802: [gtp] INFO: gtp_connect() [192.168.13.151]:2152 (../lib/gtp/path.c:60)
-07/23 19:20:23.121: [gtp] INFO: gtp_connect() [192.168.13.121]:2152 (../lib/gtp/path.c:60)
+11/10 22:42:25.252: [sgwu] INFO: UE F-SEID[UP:0xa44 CP:0xbf0] (../src/sgwu/context.c:169)
+11/10 22:42:25.252: [sgwu] INFO: [Added] Number of SGWU-Sessions is now 1 (../src/sgwu/context.c:174)
+11/10 22:42:25.277: [gtp] INFO: gtp_connect() [192.168.13.151]:2152 (../lib/gtp/path.c:60)
+11/10 22:42:25.569: [gtp] INFO: gtp_connect() [192.168.14.121]:2152 (../lib/gtp/path.c:60)
 ```
 The PDU session establishment status of VPP-UPF is as follows.
 ```
 vpp# show upf session 
-CP F-SEID: 0x00000000000007a9 (1961) @ 192.168.14.111
-UP F-SEID: 0x00000000000007a9 (1961) @ 192.168.14.151
+CP F-SEID: 0x0000000000000dc1 (3521) @ 192.168.14.111
+UP F-SEID: 0x0000000000000dc1 (3521) @ 192.168.14.151
+User ID: IMEI:3534900698733153
   PFCP Association: 0
   TEID assignment per choose ID
-PDR: 1 @ 0x7f9cffb194e0
+PDR: 1 @ 0x7f161d24a358
   Precedence: 255
   PDI:
     Fields: 0000000c
@@ -575,14 +576,14 @@ PDR: 1 @ 0x7f9cffb194e0
   Outer Header Removal: no
   FAR Id: 1
   URR Ids: [] @ 0x0
-  QER Ids: [1] @ 0x7f9d36e511d0
-PDR: 2 @ 0x7f9cffb19560
+  QER Ids: [1] @ 0x7f161d24a568
+PDR: 2 @ 0x7f161d24a3d8
   Precedence: 255
   PDI:
     Fields: 0000000d
     Source Interface: Access
     Network Instance: internet
-    Local F-TEID: 807256725 (0x301dc295)
+    Local F-TEID: 567441926 (0x21d27a06)
             IPv4: 192.168.13.151
     UE IP address (source):
       IPv4 address: 10.45.0.2
@@ -591,26 +592,26 @@ PDR: 2 @ 0x7f9cffb19560
   Outer Header Removal: GTP-U/UDP/IPv4
   FAR Id: 2
   URR Ids: [] @ 0x0
-  QER Ids: [1] @ 0x7f9d36e512e0
-PDR: 3 @ 0x7f9cffb195e0
+  QER Ids: [1] @ 0x7f161d24a588
+PDR: 3 @ 0x7f161d24a458
   Precedence: 1000
   PDI:
     Fields: 00000001
     Source Interface: CP-function
     Network Instance: internet
-    Local F-TEID: 168178416 (0x0a0632f0)
+    Local F-TEID: 995330477 (0x3b5389ad)
             IPv4: 192.168.13.151
   Outer Header Removal: GTP-U/UDP/IPv4
   FAR Id: 1
   URR Ids: [] @ 0x0
   QER Ids: [] @ 0x0
-PDR: 4 @ 0x7f9cffb19660
+PDR: 4 @ 0x7f161d24a4d8
   Precedence: 1
   PDI:
     Fields: 00000009
     Source Interface: Access
     Network Instance: internet
-    Local F-TEID: 807256725 (0x301dc295)
+    Local F-TEID: 567441926 (0x21d27a06)
             IPv4: 192.168.13.151
     SDF Filter [1]:
       permit out 58 from ff02::2 to assigned 
@@ -623,7 +624,7 @@ FAR: 1
   Forward:
     Network Instance: internet
     Destination Interface: 0
-    Outer Header Creation: [GTP-U/UDP/IPv4],TEID:0000304b,IP:192.168.13.112
+    Outer Header Creation: [GTP-U/UDP/IPv4],TEID:00008f95,IP:192.168.13.112
 FAR: 2
   Apply Action: 00000002 == [FORWARD]
   Forward:
@@ -659,22 +660,22 @@ Run `tcpdump` on VM-DN and check that the packet goes through N6 (enp0s9).
 - `ping google.com` on VM4 (UE)
 ```
 # ping google.com -I tun_srsue -n
-PING google.com (142.250.196.110) from 10.45.0.2 tun_srsue: 56(84) bytes of data.
-64 bytes from 142.250.196.110: icmp_seq=2 ttl=59 time=88.2 ms
-64 bytes from 142.250.196.110: icmp_seq=3 ttl=59 time=85.3 ms
-64 bytes from 142.250.196.110: icmp_seq=4 ttl=59 time=85.1 ms
+PING google.com (142.250.198.14) from 10.45.0.2 tun_srsue: 56(84) bytes of data.
+64 bytes from 142.250.198.14: icmp_seq=1 ttl=59 time=216 ms
+64 bytes from 142.250.198.14: icmp_seq=2 ttl=59 time=168 ms
+64 bytes from 142.250.198.14: icmp_seq=3 ttl=59 time=192 ms
 ```
 - Run `tcpdump` on VM-DN
 ```
 # tcpdump -i enp0s9 -n
 tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
 listening on enp0s9, link-type EN10MB (Ethernet), snapshot length 262144 bytes
-19:28:14.812982 IP 10.45.0.2 > 142.250.196.110: ICMP echo request, id 3, seq 2, length 64
-19:28:14.831609 IP 142.250.196.110 > 10.45.0.2: ICMP echo reply, id 3, seq 2, length 64
-19:28:15.814891 IP 10.45.0.2 > 142.250.196.110: ICMP echo request, id 3, seq 3, length 64
-19:28:15.831626 IP 142.250.196.110 > 10.45.0.2: ICMP echo reply, id 3, seq 3, length 64
-19:28:16.813576 IP 10.45.0.2 > 142.250.196.110: ICMP echo request, id 3, seq 4, length 64
-19:28:16.830764 IP 142.250.196.110 > 10.45.0.2: ICMP echo reply, id 3, seq 4, length 64
+22:46:58.469153 IP 10.45.0.2 > 142.250.198.14: ICMP echo request, id 5, seq 1, length 64
+22:46:58.540202 IP 142.250.198.14 > 10.45.0.2: ICMP echo reply, id 5, seq 1, length 64
+22:46:59.428963 IP 10.45.0.2 > 142.250.198.14: ICMP echo request, id 5, seq 2, length 64
+22:46:59.507721 IP 142.250.198.14 > 10.45.0.2: ICMP echo reply, id 5, seq 2, length 64
+22:47:00.437694 IP 10.45.0.2 > 142.250.198.14: ICMP echo request, id 5, seq 3, length 64
+22:47:00.515854 IP 142.250.198.14 > 10.45.0.2: ICMP echo reply, id 5, seq 3, length 64
 ```
 You could now connect to the PDN and send any packets on the network using VPP-UPF with DPDK.
 
@@ -687,4 +688,5 @@ I would like to thank the excellent developers and all the contributors of Open5
 
 ## Changelog (summary)
 
+- [2023.11.10] Changed VPP-UPF from [oai-cn5g-upf-vpp](https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-upf-vpp) to its base [travelping/upg-vpp](https://github.com/travelping/upg-vpp).
 - [2023.07.23] Initial release.

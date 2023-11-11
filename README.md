@@ -677,6 +677,31 @@ listening on enp0s9, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 22:47:00.437694 IP 10.45.0.2 > 142.250.198.14: ICMP echo request, id 5, seq 3, length 64
 22:47:00.515854 IP 142.250.198.14 > 10.45.0.2: ICMP echo reply, id 5, seq 3, length 64
 ```
+In addition to `ping`, you may try to access the web by specifying the TUNnel interface with `curl` as follows.
+- `curl google.com` on VM4 (UE)
+```
+# curl --interface tun_srsue google.com
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+```
+- Run `tcpdump` on VM-DN
+```
+14:58:40.197916 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [S], seq 1447863859, win 64240, options [mss 1460,sackOK,TS val 1390299417 ecr 0,nop,wscale 7], length 0
+14:58:40.230678 IP 142.250.198.14.80 > 10.45.0.2.60910: Flags [S.], seq 2176001, ack 1447863860, win 65535, options [mss 1460], length 0
+14:58:40.275964 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [.], ack 1, win 64240, length 0
+14:58:40.275964 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [P.], seq 1:75, ack 1, win 64240, length 74: HTTP: GET / HTTP/1.1
+14:58:40.276093 IP 142.250.198.14.80 > 10.45.0.2.60910: Flags [.], ack 75, win 65535, length 0
+14:58:40.453255 IP 142.250.198.14.80 > 10.45.0.2.60910: Flags [P.], seq 1:774, ack 75, win 65535, length 773: HTTP: HTTP/1.1 301 Moved Permanently
+14:58:40.521604 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [.], ack 774, win 63467, length 0
+14:58:40.521604 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [F.], seq 75, ack 774, win 63467, length 0
+14:58:40.521748 IP 142.250.198.14.80 > 10.45.0.2.60910: Flags [.], ack 76, win 65535, length 0
+14:58:40.538291 IP 142.250.198.14.80 > 10.45.0.2.60910: Flags [F.], seq 774, ack 76, win 65535, length 0
+14:58:40.601346 IP 10.45.0.2.60910 > 142.250.198.14.80: Flags [.], ack 775, win 63467, length 0
+```
 You could now connect to the PDN and send any packets on the network using VPP-UPF with DPDK.
 
 ---

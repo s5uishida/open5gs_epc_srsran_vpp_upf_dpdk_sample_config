@@ -707,7 +707,7 @@ You could now connect to the PDN and send any packets on the network using VPP-U
 ---
 
 Now you could work Open5GS EPC with VPP-UPF.
-I would like to thank the excellent developers and all the contributors of Open5GS, OpenAir CN 5G for UPF, UPG-VPP, DPDK and srsRAN 4G.
+I would like to thank the excellent developers and all the contributors of Open5GS, OpenAir CN 5G for UPF, UPG-VPP, VPP, DPDK and srsRAN 4G.
 
 <a id="changelog"></a>
 

@@ -411,6 +411,7 @@ Please refer to the following for building Open5GS, VPP-UPF and UERANSIM respect
 
 Install MongoDB on Open5GS EPC C-Plane machine.
 [MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
+**See also [this](https://github.com/s5uishida/build_srsran_4g_zmq_disable_rf_plugins) for building srsRAN 4G.**
 
 <a id="run"></a>
 

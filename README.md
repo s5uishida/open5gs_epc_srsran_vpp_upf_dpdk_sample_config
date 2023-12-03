@@ -128,7 +128,7 @@ The main information of eNodeB is as follows.
 Please refer to the following for building Open5GS, VPP-UPF and srsRAN 4G ZMQ respectively.
 - Open5GS v2.6.6 (2023.11.10) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UPG-VPP v1.10.0 (2023.11.10) - https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1
-- srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
+- srsRAN 4G (2023.06.19) - https://github.com/s5uishida/build_srsran_4g_zmq_disable_rf_plugins
 
 <a id="changes_cp"></a>
 
@@ -407,11 +407,10 @@ See [this1](https://github.com/s5uishida/install_vpp_upf_dpdk#setup_up) and [thi
 Please refer to the following for building Open5GS, VPP-UPF and srsRAN 4G ZMQ UE / RAN respectively.
 - Open5GS v2.6.6 (2023.11.10) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UPG-VPP v1.10.0 (2023.11.10) - https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1
-- srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/
+- srsRAN 4G (2023.06.19) - https://github.com/s5uishida/build_srsran_4g_zmq_disable_rf_plugins
 
 Install MongoDB on Open5GS EPC C-Plane machine.
 [MongoDB Compass](https://www.mongodb.com/products/compass) is a convenient tool to look at the MongoDB database.
-**See also [this](https://github.com/s5uishida/build_srsran_4g_zmq_disable_rf_plugins) for building srsRAN 4G.**
 
 <a id="run"></a>
 

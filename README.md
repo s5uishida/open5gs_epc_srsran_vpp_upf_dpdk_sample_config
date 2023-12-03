@@ -404,7 +404,7 @@ See [this1](https://github.com/s5uishida/install_vpp_upf_dpdk#setup_up) and [thi
 
 ## Build Open5GS, VPP-UPF and srsRAN 4G ZMQ UE / RAN
 
-Please refer to the following for building Open5GS, VPP-UPF and UERANSIM respectively.
+Please refer to the following for building Open5GS, VPP-UPF and srsRAN 4G ZMQ UE / RAN respectively.
 - Open5GS v2.6.6 (2023.11.10) - https://open5gs.org/open5gs/docs/guide/02-building-open5gs-from-sources/
 - UPG-VPP v1.10.0 (2023.11.10) - https://github.com/s5uishida/install_vpp_upf_dpdk#annex_1
 - srsRAN 4G (2023.06.19) - https://docs.srsran.com/projects/4g/en/latest/

@@ -197,8 +197,8 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
 - `open5gs/install/etc/open5gs/smf.yaml`
 ```diff
 --- smf.yaml.orig       2024-03-24 15:36:48.000000000 +0900
-+++ smf.yaml    2024-03-24 22:48:01.030302570 +0900
-@@ -8,27 +8,19 @@
++++ smf.yaml    2024-03-25 00:10:24.030693017 +0900
+@@ -8,39 +8,29 @@
  #    peer: 64
  
  smf:
@@ -230,7 +230,11 @@ For the sake of simplicity, I used only APN this time. Please refer to [here](ht
    metrics:
      server:
        - address: 127.0.0.4
-@@ -39,8 +31,6 @@
+         port: 9090
+   session:
+     - subnet: 10.45.0.1/16
+-    - subnet: 2001:db8:cafe::1/48
++      dnn: internet
    dns:
      - 8.8.8.8
      - 8.8.4.4

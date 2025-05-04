@@ -71,23 +71,23 @@ The network interfaces of each VM are as follows.
 These devices will be enabled and set IP addresses in the `init.conf` file of VPP-UPF.**
 | VM | Device | Model | Linux Bridge | IP address | Interface | Under DPDK |
 | --- | --- | --- | --- | --- | --- | --- |
-| VM1 | ens18 | VirtIO | vmbr1 | 10.0.0.111/24 | (NAPT NW) | --- |
-| | ens19 | VirtIO | mgbr0 | 192.168.0.111/24 | (Mgmt NW) | --- |
-| | ens20 | VirtIO | vmbr4 | 192.168.14.111/24 | Sxb (N4 for 5GC) | --- |
+| VM1 | ens18 | VirtIO | vmbr1 | 10.0.0.111/24 | (NAPT NW) | -- |
+| | ens19 | VirtIO | mgbr0 | 192.168.0.111/24 | (Mgmt NW) | -- |
+| | ens20 | VirtIO | vmbr4 | 192.168.14.111/24 | Sxb (N4 for 5GC) | -- |
 | VM2 | ens18 | VirtIO | vmbr1 | 10.0.0.112/24 | (NAPT NW) | -- |
 | | ens19 | VirtIO | mgbr0 | 192.168.0.112/24 | (Mgmt NW) | -- |
 | | ens20 | VirtIO | vmbr3 | 192.168.13.112/24 | S1-U,S5u (N3 for 5GC) | -- |
-| VM-UP | ens18 | VirtIO | vmbr1 | 10.0.0.151/24 | (NAPT NW) | --- |
-| | ens19 | VirtIO | mgbr0 | 192.168.0.151/24 | (Mgmt NW) | --- |
+| VM-UP | ens18 | VirtIO | vmbr1 | 10.0.0.151/24 | (NAPT NW) | -- |
+| | ens19 | VirtIO | mgbr0 | 192.168.0.151/24 | (Mgmt NW) | -- |
 | | ens20 | VirtIO | vmbr3 | 192.168.13.151/24 | S5u (N3 for 5GC) | x |
 | | ens21 | VirtIO | vmbr4 | 192.168.14.151/24 | Sxb (N4 for 5GC) | x |
 | | ens22 | VirtIO | vmbr6 | 192.168.16.151/24 | SGi (N6 for 5GC) | x |
-| VM-DN | ens18 | VirtIO | vmbr1 | 10.0.0.152/24 | (NAPT NW) | --- |
-| | ens19 | VirtIO | mgbr0 | 192.168.0.152/24 | (Mgmt NW) | --- |
-| | ens20 | VirtIO | vmbr6 | 192.168.16.152/24 | SGi (N6 for 5GC) | --- |
-| VM3 | ens18 | VirtIO | vmbr1 | 10.0.0.121/24 | (NAPT NW) | --- |
-| | ens19 | VirtIO | mgbr0 | 192.168.0.121/24 | (Mgmt NW) | --- |
-| | ens20 | VirtIO | vmbr3 | 192.168.13.121/24 | S1-U (N3 for 5GC) | --- |
+| VM-DN | ens18 | VirtIO | vmbr1 | 10.0.0.152/24 | (NAPT NW) | -- |
+| | ens19 | VirtIO | mgbr0 | 192.168.0.152/24 | (Mgmt NW) | -- |
+| | ens20 | VirtIO | vmbr6 | 192.168.16.152/24 | SGi (N6 for 5GC) | -- |
+| VM3 | ens18 | VirtIO | vmbr1 | 10.0.0.121/24 | (NAPT NW) | -- |
+| | ens19 | VirtIO | mgbr0 | 192.168.0.121/24 | (Mgmt NW) | -- |
+| | ens20 | VirtIO | vmbr3 | 192.168.13.121/24 | S1-U (N3 for 5GC) | -- |
 | VM4 | ens18 | VirtIO | vmbr1 | 10.0.0.122/24 | (NAPT NW) | -- |
 | | ens19 | VirtIO | mgbr0 | 192.168.0.122/24 | (Mgmt NW) | -- |
 

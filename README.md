@@ -435,11 +435,12 @@ See [this](https://github.com/s5uishida/install_vpp_upf_dpdk#run_upg_vpp).
 ### Run Open5GS EPC C-Plane
 
 ```
+./install/bin/open5gs-hssd &
+./install/bin/open5gs-pcrfd &
+sleep 1
 ./install/bin/open5gs-mmed &
 ./install/bin/open5gs-sgwcd &
 ./install/bin/open5gs-smfd &
-./install/bin/open5gs-hssd &
-./install/bin/open5gs-pcrfd &
 ```
 The status of PFCP association between VPP-UPF and Open5GS SMF(PGW-C) is as follows.
 ```

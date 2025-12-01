@@ -1,4 +1,4 @@
-# Open5GS EPC & srsRAN 4G with ZeroMQ UE / RAN Sample Configuration - UPG-VPP(VPP/DPDK UPF(PGW-U))
+# Open5GS EPC & srsRAN 4G with ZeroMQ UE / RAN Sample Configuration - UPG-VPP(DPDK/VPP UPF(PGW-U))
 This describes a simple configuration for working Open5GS EPC and UPG-VPP.
 In particular, see [here](https://github.com/s5uishida/install_vpp_upf_dpdk) for UPG-VPP configuration.
 
@@ -49,9 +49,9 @@ The built simulation environment is as follows.
 
 <img src="./images/network-overview.png" title="./images/network-overview.png" width=1000px></img>
 
-The EPC / VPP/DPDK PGW-U / UE / RAN used are as follows.
+The EPC / DPDK/VPP PGW-U / UE / RAN used are as follows.
 - EPC - Open5GS v2.7.5 (2025.04.25) - https://github.com/open5gs/open5gs
-- VPP/DPDK PGW-U - UPG-VPP v1.13.0 (2024.03.25) - https://github.com/travelping/upg-vpp
+- DPDK/VPP PGW-U - UPG-VPP v1.13.0 (2024.03.25) - https://github.com/travelping/upg-vpp
 - UE / RAN - srsRAN 4G (2024.02.01) - https://github.com/srsran/srsRAN_4G
 
 Each VMs are as follows.  
